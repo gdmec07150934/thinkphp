@@ -1,0 +1,47 @@
+{extend name='base' /}
+{block name='centent'}
+<article>
+    <div class="_head category_title">
+        <h2>
+            {$headData['title']}：
+            <!--分类：-->
+            {$headData['name']}
+        </h2>
+        <span>
+									共 {$headData['total']} 篇文章
+								</span>
+    </div>
+</article>
+{foreach name='articleData' item='value'}
+<article>
+    <div class="_head">
+        <h1>{$value['arc_title']}</h1>
+        <span>
+								作者：
+								{$value['arc_author']}
+								</span>
+        •
+        <!--pubdate表⽰示发布⽇日期-->
+        <time pubdate="pubdate" datetime="{:date('Y-m-d',$value['sendtime'])}">{:date('Y-m-d',$value['sendtime'])}</time>
+        •
+        分类：
+        <a href="">{$value['cate_name']}</a>
+    </div>
+    <div class="_digest">
+        <img src="{$value['arc_thumb']}"  class="img-responsive"/>
+        <p>
+            {$value['arc_digest']}
+        </p>
+    </div>
+    <div class="_more">
+        <a href="{:url('index/content/index',['arc_id'=>$value['arc_id']])}" class="btn btn-default">阅读全文</a>
+    </div>
+    <div class="_footer">
+        <i class="glyphicon glyphicon-tags"></i>
+        {foreach name="value['tags']" item ='v'}
+        <a href="{:url('index/lists/index',['tag_id'=>$v['tag_id']])}">{$v['tag_name']}</a>、
+        {/foreach}
+    </div>
+</article>
+{/foreach}
+{/block}

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"E:\wamp\www\thinkphp\public/../application/admin\view\login\login.html";i:1495630467;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"E:\wamp\www\thinkphp\public/../application/admin/view/login/login.html";i:1495630467;}*/ ?>
 <!DOCTYPE html>
 <html lang="en" class="bg-dark">
 <head>

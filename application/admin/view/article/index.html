@@ -1,0 +1,74 @@
+{extend name='base' /}
+{block name='centent' }
+<ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px 0;margin-bottom:10px;">
+    <li>
+        <a href=""><i class="fa fa-cogs"></i>
+            文章管理</a>
+    </li>
+    <li class="active">
+        <a href="">文章添加</a>
+    </li>
+</ol>
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#tab1">文章管理</a></li>
+    <li><a href="{:url('store')}">文章添加</a></li>
+</ul>
+<form action="" method="post">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th width="5%">编号</th>
+                    <th>文章名称</th>
+                    <th>文章作者</th>
+                    <th width="10%">排序</th>
+                    <th>所属分类</th>
+                    <th>添加时间</th>
+                    <th width="200">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach name='field' item='value'}
+                <tr>
+                    <td>{$value['arc_id']}</td>
+                    <td>{$value['arc_title']}</td>
+                    <td>{$value['arc_author']}</td>
+                    <td>
+                        <input type="text" class="form-control" value="{$value['arc_sort']}" onblur="changeSort(this,{$value['arc_id']})">
+                    </td>
+                    <td>{$value['cate_name']}</td>
+                    <td>{:date('Y-m-d',$value['sendtime'])}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="{:url('edit',['arc_id'=>$value['arc_id']])}">编辑</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{:url('delToRecycle',['arc_id'=>$value['arc_id']])}">删除到回收站</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+<div class="pagination pagination-sm pull-right">
+{$field->render()}
+</div>
+<script>
+    function changeSort(obj,arc_id){
+        var arc_sort=$(obj).val();
+        $.post("{:url('changeSort')}",{arc_sort:arc_sort,arc_id:arc_id},function (res) {
+            if(res.code){
+                util.message(res.msg,'refresh','success');
+            }else{
+                util.message(res.msg,'back','erroe');
+            }
+        },'json')
+    }
+</script>
+{/block}
